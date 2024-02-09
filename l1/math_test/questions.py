@@ -179,8 +179,11 @@ class MathTestConstructor:
                 n2 = 2
 
             if operation == 5:
-                n1 = randint(1, 12)
-                n2 = 1/2
+                while True:
+                    n1 = randint(1, 12)
+                    n2 = 1 / 2
+                    if (n1 ** n2) % 1 == 0:
+                        break
 
             while True:
                 print()
@@ -227,8 +230,8 @@ class MathTestConstructor:
 
             if operation == 3:
                 while True:
-                    n1 = randint(1, 144)
-                    n2 = randint(1, 12)
+                    n1 = randint(1, 400)
+                    n2 = randint(1, 20)
                     if n1 % n2 == 0:
                         break
 
