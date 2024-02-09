@@ -18,10 +18,11 @@ def c1():
         print("You need a password!")
 
     while True:
-        input_username = input("What is the username: ")
+        input_username = input("\nWhat is the username: ")
         input_password = input("What is the password: ")
         if username == input_username and password == input_password:
-            print("Correct!")
+            print("Correct! You may enter now.")
+            break
         print("Your details are not correct. Try again!")
 
 def c2():
@@ -162,7 +163,7 @@ def c5():
     if selection == 2:
 
         conditions = [">", "<", "!", "="]
-        
+
         while True:
             try:
                 user_input = input("\nType your equation: ")
@@ -190,7 +191,7 @@ def c5():
 
 
 
-def c6v1():
+def c6():
 
     score = 0
 
@@ -199,10 +200,10 @@ def c6v1():
     for i in range(10):
         operation = randint(0, 3)
         operations = ["+", "-", "*", "/"]
-        
+
         n1 = 1
         n2 = 1
-        
+
         if operation == 0:
             n1 = randint(1, 100)
             n2 = randint(1, 100)
@@ -243,14 +244,20 @@ def c6v1():
     passfail = "passed" if score == 10 else "failed"
     print(f"\nYou answered {score} questions correctly. You {passfail} the test!")
 
-c5()
 
-# while True:
-#     selection = input("What program do you want to run? (1-6) ")
-#     try:
-#         selection = int(selection)
-#     except ValueError:
-#         print("Please select a valid option!")
-#         continue
+while True:
+    print("\nType 0 to exit.")
+    selection = input("What program do you want to run? (1-6) ")
+    try:
+        selection = int(selection)
+    except ValueError:
+        print("Please select a valid option!")
+        continue
 
-#     break
+    if selection == 0:
+        exit()
+
+    print()
+    function_call = f"c{selection}"
+    program = globals()[function_call]
+    program()
