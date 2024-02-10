@@ -21,7 +21,7 @@ while True:
         test_time = test_end - test_start
 
         print(f"""
-\nYou got {test.score} our of 10 correct on the level {test.difficulty} maths test.""")
+\nYou got {test.score} out of 10 correct on the level {test.difficulty} maths test.""")
         print(f"\nYou completed the test in {int(test_end - test_start)} seconds!")
 
         if test.score >= 8:
@@ -40,7 +40,7 @@ while True:
             print("However, you have bad accuracy. Try the test again.")
 
         elif test.score < 5:
-            print(f"You  have failed level {test.difficulty}")
+            print(f"You have failed level {test.difficulty}")
             print("How about you go down a level to refine your skills a lil bit?")
             test.difficulty -= 1
 
