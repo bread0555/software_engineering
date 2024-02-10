@@ -2,7 +2,7 @@ from questions import MathTestConstructor
 from time import time
 
 
-test_constructor = MathTestConstructor()
+test = MathTestConstructor()
 print("Welcome to the math test hub!")
 
 while True:
@@ -15,33 +15,34 @@ while True:
         continue
 
     if selection == 1:
-        test_level = test_constructor.difficulty
-        test_method = getattr(test_constructor, f"test_{test_level}")
         test_start = time()
-        test_score = test_method()
+        test.test()
         test_end = time()
+        test_time = test_end - test_start
 
-        print(f"\nYou scored {test_score} in the level {test_level} test.\n")
-        if test_score >= 8 and test_level < 5:
-            print(f"You passed level {test_level}!")
-            print(f"You can now move onto {test_level + 1}!")
-            test_constructor.difficulty += 1
-        if test_score >= 8 and test_level == 5:
-            print(f"You have passed level {test_level}!")
-            print("⚠️  You have reached the maximum level.")
-            if test_end - test_start > 30:
-                print("However, you clearly need more practising!")
-                print("Try test 5 again, but aim to complete it quicker.")
-                print(test_end - test_start)
+        print(f"""
+\nYou got {test.score} our of 10 correct on the level {test.difficulty} maths test.""")
+        print(f"\nYou completed the test in {int(test_end - test_start)} seconds!")
+
+        if test.score >= 8:
+            print(f"You have passed level {test.difficulty}!")
+            if test_time <= 30:
+                print("You can now proceed to the next level.")
+                if test.difficulty == 5:
+                    print("⚠️ You have reached the maximum level. Congrats.")
+                else:
+                    test.difficulty += 1
             else:
-                print("Congrats on beating the game (:")
-        if 5 <= test_score < 8:
-            print(f"You barely passed level {test_level}!")
-            print("However, you can do better! Try the test again.")
-        if test_score < 5:
-            print(f"You failed level {test_level}")
-            print("How about you go down a level to refine your skills a bit?")
-            test_constructor.difficulty -= 1
+                print("However, you were too slow. Be faster.")
+
+        elif 5 <= test.score < 8:
+            print(f"You have barely passed level {test.difficulty}!")
+            print("However, you have bad accuracy. Try the test again.")
+
+        elif test.score < 5:
+            print(f"You  have failed level {test.difficulty}")
+            print("How about you go down a level to refine your skills a lil bit?")
+            test.difficulty -= 1
 
     if selection == 2:
         exit()
