@@ -4,264 +4,144 @@ from random import randint
 class MathTestConstructor:
     def __init__(self):
         self.difficulty = 3
+
         self.operations = ["+", "-", "*", "/", "**", "**"]
+        self.correct_msg = "The answer is correct!"
+        self.valueerror_msg = "That is not an integer! Try again."
 
-    def test_1(self):
+        self.n1 = 0
+        self.n2 = 0
+        self.operation = "+"
 
-        score = 0
+        self.score = 0
+
+    def test_builder(self):
+        self.n1 = 0
+        self.n2 = 0
+
+        while True:
+            if self.difficulty == 1:
+                self.operation = randint(0, 1)
+                if self.operation == 0:
+                    self.n1 = randint(1, 10)
+                    self.n2 = randint(1, 10)
+                elif self.operation == 1:
+                    self.n1 = randint(1, 10)
+                    self.n2 = randint(1, self.n1)
+
+            elif self.difficulty == 2:
+                self.operation = randint(0, 3)
+                if self.operation == 0:
+                    self.n1 = randint(1, 50)
+                    self.n2 = randint(1, 50)
+                elif self.operation == 1:
+                    self.n1 = randint(1, 50)
+                    self.n2 = randint(1, self.n1)
+                elif self.operation == 2:
+                    self.n1 = randint(1, 5)
+                    self.n2 = randint(1, 12)
+                elif self.operation == 3:
+                    while True:
+                        self.n1 = randint(1, 60)
+                        self.n2 = randint(1, 12)
+                        if self.n1 % self.n2 == 0:
+                            break
+
+            elif self.difficulty == 3:
+                self.operation = randint(0, 3)
+                if self.operation == 0:
+                    self.n1 = randint(1, 100)
+                    self.n2 = randint(1, 100)
+                elif self.operation == 1:
+                    self.n1 = randint(1, 100)
+                    self.n2 = randint(1, self.n1)
+                elif self.operation == 2:
+                    self.n1 = randint(1, 12)
+                    self.n2 = randint(1, 12)
+                elif self.operation == 3:
+                    while True:
+                        self.n1 = randint(1, 144)
+                        self.n2 = randint(1, 12)
+                        if self.n1 % self.n2 == 0:
+                            break
+
+            elif self.difficulty == 4:
+                self.operation = randint(0, 5)
+                if self.operation == 0:
+                    self.n1 = randint(1, 500)
+                    self.n2 = randint(1, 500)
+                elif self.operation == 1:
+                    self.n1 = randint(1, 500)
+                    self.n2 = randint(1, self.n1)
+                elif self.operation == 2:
+                    self.n1 = randint(1, 15)
+                    self.n2 = randint(1, 15)
+                elif self.operation == 3:
+                    while True:
+                        self.n1 = randint(1, 225)
+                        self.n2 = randint(1, 15)
+                        if self.n1 % self.n2 == 0:
+                            break
+                elif self.operation == 4:
+                    self.n1 = randint(1, 12)
+                    self.n2 = 2
+                elif self.operation == 5:
+                    while True:
+                        self.n1 = randint(1, 12)
+                        self.n2 = 1 / 2
+                        if (self.n1 ** self.n2) % 1 == 0:
+                            break
+
+            elif self.difficulty == 5:
+                self.operation = randint(0, 5)
+                if self.operation == 0:
+                    self.n1 = randint(1, 1000)
+                    self.n2 = randint(1, 1000)
+                elif self.operation == 1:
+                    self.n1 = randint(1, 1000)
+                    self.n2 = randint(1, self.n1)
+                elif self.operation == 2:
+                    self.n1 = randint(1, 20)
+                    self.n2 = randint(1, 20)
+                elif self.operation == 3:
+                    while True:
+                        self.n1 = randint(1, 400)
+                        self.n2 = randint(1, 20)
+                        if self.n1 % self.n2 == 0:
+                            break
+                elif self.operation == 4:
+                    self.n1 = randint(1, 20)
+                    self.n2 = randint(2, 3)
+                elif self.operation == 5:
+                    while True:
+                        self.n1 = randint(1, 20)
+                        self.n2 = 1 / randint(2, 3)
+                        if (self.n1 ** self.n2) % 1 == 0:
+                            break
+
+            if self.n1 and self.n2:
+                break
+
+    def test(self):
+        self.score = 0
 
         for i in range(10):
-            operation = randint(0, 1)
-
-            n1 = 1
-            n2 = 1
-
-            if operation == 0:
-                n1 = randint(1, 10)
-                n2 = randint(1, 10)
-
-            if operation == 1:
-                n1 = randint(1, 10)
-                n2 = randint(1, n1)
-
+            self.test_builder()
             while True:
-                print()
-                response = input(f"What is {n1} {self.operations[operation]} {n2}? ")
-                answer = int(eval(f"{n1}{self.operations[operation]}{n2}"))
+                response = input(f"""
+\nWhat is {self.n1} {self.operations[int(self.operation)]} {self.n2}? """)
+                answer = int(eval(f"""
+{self.n1}{self.operations[int(self.operation)]}{self.n2}"""))
                 try:
                     response = int(response)
                 except ValueError:
-                    print("That is not a number! Try again.")
+                    print(self.valueerror_msg)
                     continue
                 if response == answer:
-                    print("The answer was correct!")
-                    score += 1
-                    break
-
-                print(f"{n1} {self.operations[operation]} {n2} does not equal {response}.")
-                print(f"The answer is {answer}.")
+                    print(self.correct_msg)
+                    self.score += 1
+                else:
+                    print(f"""
+{self.n1} {self.operations[int(self.operation)]} {self.n2} does not equal {response}.""")
+                    print(f"The answer is {answer}.")
                 break
-
-        return score
-
-
-    def test_2(self):
-
-        score = 0
-
-        for i in range(10):
-            operation = randint(0, 3)
-
-            n1 = 1
-            n2 = 1
-
-            if operation == 0:
-                n1 = randint(1, 50)
-                n2 = randint(1, 50)
-
-            if operation == 1:
-                n1 = randint(1, 50)
-                n2 = randint(1, n1)
-
-            if operation == 2:
-                n1 = randint(1, 12)
-                n2 = randint(1, 5)
-
-            if operation == 3:
-                while True:
-                    n1 = randint(1, 60)
-                    n2 = randint(1, 12)
-                    if n1 % n2 == 0:
-                        break
-
-            while True:
-                print()
-                response = input(f"What is {n1} {self.operations[operation]} {n2}? ")
-                answer = int(eval(f"{n1}{self.operations[operation]}{n2}"))
-                try:
-                    response = int(response)
-                except ValueError:
-                    print("That is not a number! Try again.")
-                    continue
-                if response == answer:
-                    print("The answer was correct!")
-                    score += 1
-                    break
-
-                print(f"{n1} {self.operations[operation]} {n2} does not equal {response}.")
-                print(f"The answer is {answer}.")
-                break
-
-        return score
-
-
-    def test_3(self):
-
-        score = 0
-
-        for i in range(10):
-            operation = randint(0, 3)
-
-            n1 = 1
-            n2 = 1
-
-            if operation == 0:
-                n1 = randint(1, 100)
-                n2 = randint(1, 100)
-
-            if operation == 1:
-                n1 = randint(1, 100)
-                n2 = randint(1, n1)
-
-            if operation == 2:
-                n1 = randint(1, 12)
-                n2 = randint(1, 12)
-
-            if operation == 3:
-                while True:
-                    n1 = randint(1, 144)
-                    n2 = randint(1, 12)
-                    if n1 % n2 == 0:
-                        break
-
-            while True:
-                print()
-                response = input(f"What is {n1} {self.operations[operation]} {n2}? ")
-                answer = int(eval(f"{n1}{self.operations[operation]}{n2}"))
-                try:
-                    response = int(response)
-                except ValueError:
-                    print("That is not a number! Try again.")
-                    continue
-                if response == answer:
-                    print("The answer was correct!")
-                    score += 1
-                    break
-
-                print(f"{n1} {self.operations[operation]} {n2} does not equal {response}.")
-                print(f"The answer is {answer}.")
-                break
-
-        return score
-
-
-    def test_4(self):
-
-        score = 0
-
-        for i in range(10):
-            operation = randint(0, 5)
-
-            n1 = 1
-            n2 = 1
-
-            if operation == 0:
-                n1 = randint(1, 500)
-                n2 = randint(1, 500)
-
-            if operation == 1:
-                n1 = randint(1, 500)
-                n2 = randint(1, n1)
-
-            if operation == 2:
-                n1 = randint(1, 15)
-                n2 = randint(1, 15)
-
-            if operation == 3:
-                while True:
-                    n1 = randint(1, 225)
-                    n2 = randint(1, 15)
-                    if n1 % n2 == 0:
-                        break
-
-            if operation == 4:
-                n1 = randint(1, 12)
-                n2 = 2
-
-            if operation == 5:
-                while True:
-                    n1 = randint(1, 12)
-                    n2 = 1 / 2
-                    if (n1 ** n2) % 1 == 0:
-                        break
-
-            while True:
-                print()
-                response = input(f"What is {n1} {self.operations[operation]} {n2}? ")
-                answer = int(eval(f"{n1}{self.operations[operation]}{n2}"))
-                try:
-                    response = int(response)
-                except ValueError:
-                    print("That is not a number! Try again.")
-                    continue
-                if response == answer:
-                    print("The answer was correct!")
-                    score += 1
-                    break
-
-                print(f"{n1} {self.operations[operation]} {n2} does not equal {response}.")
-                print(f"The answer is {answer}.")
-                break
-
-        return score
-
-
-    def test_5(self):
-
-        score = 0
-
-        for i in range(10):
-            operation = randint(0, 5)
-
-            n1 = 1
-            n2 = 1
-
-            if operation == 0:
-                n1 = randint(1, 1000)
-                n2 = randint(1, 1000)
-
-            if operation == 1:
-                n1 = randint(1, 1000)
-                n2 = randint(1, n1)
-
-            if operation == 2:
-                n1 = randint(1, 20)
-                n2 = randint(1, 20)
-
-            if operation == 3:
-                while True:
-                    n1 = randint(1, 400)
-                    n2 = randint(1, 20)
-                    if n1 % n2 == 0:
-                        break
-
-            if operation == 4:
-                n1 = randint(1, 20)
-                n2 = randint(2, 3)
-
-            if operation == 5:
-                while True:
-                    n1 = randint(1, 20)
-                    n2 = 1 / randint(2, 3)
-                    if (n1 ** n2) % 1 == 0:
-                        break
-
-            while True:
-                print()
-                response = input(f"What is {n1} {self.operations[operation]} {n2}? ")
-                answer = int(eval(f"{n1}{self.operations[operation]}{n2}"))
-                try:
-                    response = int(response)
-                except ValueError:
-                    print("That is not a number! Try again.")
-                    continue
-                if response == answer:
-                    print("The answer was correct!")
-                    score += 1
-                    break
-
-                print(f"{n1} {self.operations[operation]} {n2} does not equal {response}.")
-                print(f"The answer is {answer}.")
-                break
-
-        return score
